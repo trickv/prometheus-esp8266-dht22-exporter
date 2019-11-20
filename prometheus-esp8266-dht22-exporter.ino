@@ -27,13 +27,11 @@ void handleRoot() {
   String response;
   response += "# HELP temperature_c Calculated temperature in centigrade\n";
   response += "# TYPE temperature_c gauge\n";
-  response += "temperature_c{device=\"" + String(device_id) + "\"} " + String(temperature);
-  response += "\n";
+  response += "temperature_c{device=\"" + String(device_id) + "\"} " + String(temperature) + "\n\n";
 
   response += "# HELP relative_humidity Relative Humidity (RH%)\n";
   response += "# TYPE relative_humidity gauge\n";
-  response += "relative_humidity{device=\"" + String(device_id) + "\"} " + String(relative_humidity);
-  response += "\n";
+  response += "relative_humidity{device=\"" + String(device_id) + "\"} " + String(relative_humidity) + "\n\n";
 
   response += "# HELP wifi_rssi_dbm Received Signal Strength Indication, dBm\n";
   response += "# TYPE wifi_rssi_dbm counter\n";
