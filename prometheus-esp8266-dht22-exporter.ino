@@ -8,9 +8,7 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
-// FIXME:
-const char* device_type = "esp8266";
-const char* device_id = ESP.getChipId();
+String device_id;
 
 ESP8266WebServer server(80);
 
@@ -29,12 +27,12 @@ void handleRoot() {
   String response;
   response += "# HELP temperature_c Calculated temperature in centigrade\n";
   response += "# TYPE temperature_c gauge\n";
-  response += "temperature_c{device=\"" + String(device_name) + "\"} " + String(temperature);
+  response += "temperature_c{device=\"" + String(device_id) + "\"} " + String(temperature);
   response += "\n";
 
   response += "# HELP relative_humidity Relative Humidity (RH%)\n";
   response += "# TYPE relative_humidity gauge\n";
-  response += "relative_humidity{device=\"" + String(device_name) + "\"} " + String(relative_humidity);
+  response += "relative_humidity{device=\"" + String(device_id) + "\"} " + String(relative_humidity);
   response += "\n";
 
   server.send(200, "text/plain", response);
@@ -65,6 +63,10 @@ void setup(void) {
   WiFi.mode(WIFI_STA);
   dht.begin();
   Serial.println("Initialized. Waiting for WiFi");
+
+  char device_id_char[16];
+  sprintf(device_id_char, "ESP_%06X", ESP.getChipId());
+  device_id = String(device_id_char);
 
   // Wait for connection
   while (WiFi.status() != WL_CONNECTED) {
