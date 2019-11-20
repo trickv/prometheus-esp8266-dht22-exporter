@@ -8,6 +8,10 @@
 
 DHT dht(DHTPIN, DHTTYPE);
 
+// FIXME:
+const char* device_type = "esp8266";
+const char* device_id = ESP.getChipId();
+
 ESP8266WebServer server(80);
 
 void handleRoot() {
