@@ -5,7 +5,7 @@
 #include <DHT.h>
 
 #define DHTPIN 0 // GPIO0, AKA "D3" on the D1 mini
-#define DHTTYPE DHT11
+#define DHTTYPE DHT22
 
 DHT dht(DHTPIN, DHTTYPE);
 
