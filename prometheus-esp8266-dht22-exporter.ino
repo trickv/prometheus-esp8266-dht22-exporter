@@ -56,7 +56,9 @@ void setup(void) {
   digitalWrite(LED_BUILTIN, LOW);
   Serial.begin(9600);
   WiFi.mode(WIFI_STA);
-  Serial.println("Initialized. Waiting for WiFi");
+  Serial.print("Initialized.\n\nConnecting to WiFi SSID ");
+  Serial.print(WiFi.SSID());
+  Serial.println();
 
   dht.begin();
   char device_id_char[16];
