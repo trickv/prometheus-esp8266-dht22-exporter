@@ -11,13 +11,11 @@ DHT dht(DHTPIN, DHTTYPE);
 
 ESP8266WebServer server(80);
 
-
 void handleRoot() {
   digitalWrite(LED_BUILTIN, HIGH);
   float h, t;
   h = dht.readHumidity(); // Read humidity (percent)
   t = dht.readTemperature(); // Read temperature as C
-  // Check if any reads failed and exit early (to try again).
   Serial.print("temp:");
   Serial.println(t);
   Serial.print("humi:");
