@@ -21,8 +21,7 @@ void handleRoot() {
   if (isnan(relative_humidity) || isnan(temperature)) {
       Serial.println("Failed to read from DHT sensor.");
   }
-  Serial.print("Received metrics request. ");
-  Serial.print("temperature: ");
+  Serial.print("Received metrics request. temperature: ");
   Serial.print(temperature);
   Serial.print(", relative humidity:");
   Serial.println(relative_humidity);
