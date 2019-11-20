@@ -16,19 +16,28 @@ ESP8266WebServer server(80);
 
 void handleRoot() {
   digitalWrite(LED_BUILTIN, HIGH);
-  float h, t;
-  h = dht.readHumidity(); // Read humidity (percent)
-  t = dht.readTemperature(); // Read temperature as C
-  if (isnan(h) || isnan(t)) {
+  float relative_humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+  if (isnan(relative_humidity) || isnan(temperature)) {
       Serial.println("Failed to read from DHT sensor.");
   }
+  Serial.print("Received metrics request. ");
   Serial.print("temperature: ");
-  Serial.print(t);
+  Serial.print(temperature);
   Serial.print(", relative humidity:");
-  Serial.println(h);
+  Serial.println(relative_humidity);
 
-  char response[100];
-  sprintf(response, "hello from esp8266. h=%f t=%f", h, t);
+  String response;
+  response += "# HELP temperature_c Calculated temperature in centigrade\n";
+  response += "# TYPE temperature_c gauge\n";
+  response += "temperature_c{device=\"" + String(device_name) + "\"} " + String(temperature);
+  response += "\n";
+
+  response += "# HELP relative_humidity Relative Humidity (RH%)\n";
+  response += "# TYPE relative_humidity gauge\n";
+  response += "relative_humidity{device=\"" + String(device_name) + "\"} " + String(relative_humidity);
+  response += "\n";
+
   server.send(200, "text/plain", response);
   digitalWrite(LED_BUILTIN, LOW);
 }
