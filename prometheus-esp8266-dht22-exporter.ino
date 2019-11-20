@@ -1,7 +1,6 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
 #include <ESP8266WebServer.h>
-#include <ESP8266mDNS.h>
 #include <DHT.h>
 
 #define DHTPIN 0 // GPIO0, AKA "D3" on the D1 mini
@@ -66,10 +65,6 @@ void setup(void) {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  if (MDNS.begin("esp8266")) {
-    Serial.println("MDNS responder started");
-  }
-
   server.on("/", handleRoot);
 
   server.onNotFound([]() {
@@ -82,5 +77,4 @@ void setup(void) {
 
 void loop(void) {
   server.handleClient();
-  MDNS.update();
 }
