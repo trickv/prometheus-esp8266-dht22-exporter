@@ -16,13 +16,13 @@ void handleRoot() {
   float h, t;
   h = dht.readHumidity(); // Read humidity (percent)
   t = dht.readTemperature(); // Read temperature as C
-  Serial.print("temp:");
-  Serial.println(t);
-  Serial.print("humi:");
-  Serial.println(h);
   if (isnan(h) || isnan(t)) {
-      Serial.println("Failed to read from DHT sensor!");
+      Serial.println("Failed to read from DHT sensor.");
   }
+  Serial.print("temperature: ");
+  Serial.print(t);
+  Serial.print(", relative humidity:");
+  Serial.println(h);
 
   char response[100];
   sprintf(response, "hello from esp8266. h=%f t=%f", h, t);
