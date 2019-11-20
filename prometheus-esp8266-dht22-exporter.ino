@@ -35,6 +35,18 @@ void handleRoot() {
   response += "relative_humidity{device=\"" + String(device_id) + "\"} " + String(relative_humidity);
   response += "\n";
 
+  response += "# HELP wifi_rssi_dbm Received Signal Strength Indication, dBm\n";
+  response += "# TYPE wifi_rssi_dbm counter\n";
+  response += "wifi_rssi_dbm{} %d\n\n", WiFi.RSSI();
+
+  response += "# HELP heap_free_bytes Free heap in bytes\n";
+  response += "# TYPE heap_free_bytes gauge\n";
+  response += "heap_free_bytes{} %d\n\n", ESP.getFreeHeap();
+
+  response += "# HELP esp8266_build_info System informational metric with value always \n";
+  response += "# TYPE esp8266_build_info gauge\n";
+  response += "esp8266_build_info{sketch_md5=\"" + String(ESP.getSketchMD5()) + "\", device_id=\"" + device_id + "\"} 1";
+
   server.send(200, "text/plain", response);
   digitalWrite(LED_BUILTIN, LOW);
 }
