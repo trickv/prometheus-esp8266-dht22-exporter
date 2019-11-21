@@ -14,9 +14,14 @@ env:
   global:
     - ARDUINO_IDE_VERSION="1.8.7"
     - PRETTYNAME="prometheus-esp8266-dht22-exporter"
+    - MAIN_PLATFORMS='declare -A main_platforms=([esp8266]="esp8266:esp8266:huzzah:eesz=4M3M,xtal=80")'
 
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+
+install:
+  # Note that every library should be installed in a seperate command
+  - arduino --install-library "DHT sensor library"
 
 script:
   - build_main_platforms
