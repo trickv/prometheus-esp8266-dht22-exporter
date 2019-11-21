@@ -15,7 +15,7 @@ before_install:
 
 install:
   # Note that every library should be installed in a seperate command
-  - arduino --install-library "Arduino Sensor"
+  - arduino --install-library "Adafruit Sensor"
   - arduino --install-library "DHT sensor library"
 
 script:
