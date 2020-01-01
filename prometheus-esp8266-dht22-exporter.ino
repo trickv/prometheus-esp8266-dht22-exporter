@@ -53,7 +53,6 @@ void setup(void) {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
   Serial.begin(9600);
-  WiFi.mode(WIFI_STA);
   Serial.print("Initialized.\n\nConnecting to WiFi SSID ");
   Serial.print(WiFi.SSID());
   Serial.println();
